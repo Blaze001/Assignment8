@@ -1,0 +1,87 @@
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.io.Reader;
+/**
+ * 
+ */
+
+
+/**
+ * @author Mitchell VanEss
+ *a
+ */
+public class ReadFile {
+
+	/**
+	 * 
+	 */
+	public ReadFile() {
+		// TODO Auto-generated constructor stub
+	
+	}
+
+	private static void readlines(FileReader reader) {
+		// TODO Auto-generated method stub
+		LineNumberReader lineNumberReader = null;
+		lineNumberReader = new LineNumberReader(reader);
+		String line = null;
+		try
+		{
+			while ((line = lineNumberReader.readLine()) != null)
+			{
+				System.out.println(lineNumberReader.getLineNumber() + ": " + line);
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		} finally {
+			// reuse the close reader method
+			// this was refactored to send a generic Reader to be more flexible
+			closeReader(lineNumberReader);
+		}
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//Reader reader = new FileReader(C:\Users\mvane\workspace\Assignment8\src\data.dat)
+		FileReader reader = null;
+				
+				try
+				{   // "." represents the current directory
+					File file = new File(".");
+					
+					// print out where we are (the current directory is probably different than mine, so I removed the absolute path below)
+					System.out.println(file.getCanonicalPath());
+					
+					// This reads itself (or at least its own source code)
+					// This assumes the source is in the default location in Eclipse
+					reader = new FileReader("src\\TestReaderRefactor.java");
+					// refactored reading lines to simplify the code
+					readlines(reader);
+				} catch (IOException e)
+				{
+					// normally this would go to a log
+					e.printStackTrace();
+				} finally {
+					// refactor closing readers generally to simplify code
+					closeReader(reader);
+				}
+	}
+	private static void closeReader(Reader reader)
+	{
+		try
+		{
+			reader.close();
+		} catch (IOException e)
+		{
+			// normally this does not happen, but when it does, we will want information to debug it
+			// we would normally send this to a log
+			e.printStackTrace();
+		}
+	}
+}
