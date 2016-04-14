@@ -1,0 +1,68 @@
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+//import java.io.PrintWriter;
+import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+ 
+/**
+ * 
+ */
+
+/**
+ * @author Mitchell VanEss
+ *
+ */
+public class FileRead {
+
+	/**
+	 * 
+	 */
+	public FileRead() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		File file = new File("data1.dat");
+		   String x = ("TEST");
+	    int y = 0;
+	    BufferedReader reader = new BufferedReader(new FileReader("src/data.dat"));
+	    String[] string = new String[24];
+	    FileWriter fw = new FileWriter(file.getAbsoluteFile());
+	    BufferedWriter text = new BufferedWriter(fw);
+	    while (true)
+	    {
+	        String line = reader.readLine();
+	        if (line == null)
+	        {
+	        break;
+	        }
+	        line = line.toUpperCase();
+	        string[y] = line;
+	        y ++;
+	    }  
+	    reader.close();
+	    String trial = ("TEST");
+	    int z = 0;
+	    while (z <= 23)
+	    {
+	        trial = string[z];
+	       
+	        text.write(trial);
+	        text.newLine();
+	        z ++;
+	       
+	    }
+	   
+	    text.close();
+	 
+	    System.out.println(Arrays.toString(string));
+	}
+
+}
